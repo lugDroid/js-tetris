@@ -82,7 +82,7 @@ export default class Tetromino {
     }
 
     // ensure piece doesn't go off limits
-    if ((this.x + this.layout.length) > this.size) {
+    if ((this.x + this.getMostRightPos()) > this.size) {
       this.x--
     }
   }
@@ -98,6 +98,11 @@ export default class Tetromino {
       for (let j = 0; j < this.layout.length; j++) {
         this.layout[i][j] = oldLayout[j][this.layout.length - i - 1]
       }
+    }
+
+    // ensure piece doesn't go off limits
+    if ((this.x + this.getMostLeftPos()) < 0) {
+      this.x++
     }
   }
 
