@@ -1,11 +1,9 @@
-//import zPiece from './zPiece.js'
+import ZTetromino from './zTetromino.js'
 
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
-
-
-let piece = new zPiece()
+let piece = new ZTetromino()
 
 document.addEventListener('keydown', function(event) {
   // left arrow

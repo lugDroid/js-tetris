@@ -1,14 +1,13 @@
-//export default 
-
-class zPiece {
+export default class Tetromino {
 
   constructor() {
     this.layout = [
-      [1, 1, 0],
-      [0, 1, 1],
-      [0, 0, 0]
     ]
+
+    // inner blocks size
     this.size = 20
+
+    // initial position
     this.x = 9
     this.y = 0
   }
@@ -109,7 +108,7 @@ class zPiece {
         if (this.layout[i][j] == 1) {
           ctx.beginPath()
           ctx.rect((this.x + j) * this.size, (this.y + i) * this.size, this.size, this.size)
-          ctx.fillStyle = '#FF0000'
+          ctx.fillStyle = this.color
           ctx.fill()
           ctx.closePath()
         }
