@@ -7,21 +7,51 @@ export default class Tetromino {
     // inner blocks size
     this.size = 20
 
+    // canvas size
+    // in number of blocks
+    this.width = 20
+    this.height = 40
+
     // initial position
     this.x = 9
     this.y = 0
   }
 
   moveRight() {
-    if ((this.x + this.getMostRightPos()) < this.size) {
+    if ((this.x + this.getMostRightPos()) < this.width) {
       this.x++
     }
   }
 
   moveLeft() {
-    if (this.x + this.getMostLeftPos(0) > 0) {
+    if (this.x + this.getMostLeftPos() > 0) {
       this.x--
     }
+  }
+
+  moveDown() {
+    if (this.y + this.getBottomPos() < this.height) {
+      this.y++
+    }
+  }
+
+  getBottomPos() {
+    let pos = this.layout.reduce( (acc, row, idx) => {
+      let rowPos = row.reduce( (acc, cur, idx) => {
+        if (cur == 1) {
+          return cur
+        } else {
+          return acc
+        }
+      })
+
+      if (rowPos == 1) {
+        return idx
+      } else {
+        return acc
+      }
+    })
+    return pos + 1
   }
 
   getMostRightPos() {
@@ -81,10 +111,7 @@ export default class Tetromino {
       }
     }
 
-    // ensure piece doesn't go off limits
-    if ((this.x + this.getMostRightPos()) > this.size) {
-      this.x--
-    }
+    this.checkOffLimits()
   }
 
   rotateLeft() {
@@ -100,9 +127,17 @@ export default class Tetromino {
       }
     }
 
+    this.checkOffLimits()
+  }
+
+  checkOffLimits() {
     // ensure piece doesn't go off limits
-    if ((this.x + this.getMostLeftPos()) < 0) {
+    while ((this.x + this.getMostLeftPos()) < 0) {
       this.x++
+    }
+
+    while ((this.x + this.getMostRightPos()) > this.width) {
+      this.x--
     }
   }
 
