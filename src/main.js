@@ -5,9 +5,18 @@ import OTetromino from './oTetromino.js'
 import STetromino from './sTetromino.js'
 import TTetromino from './tTetromino.js'
 import ZTetromino from './zTetromino.js'
+import Board from './Board.js'
 
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
+
+let board = new Board(20, 40)
+
+board.setPos(0,0)
+board.setPos(19,0)
+board.setPos(19,39)
+board.setPos(0,39)
+
 
 let pieces = [
   new ITetromino(),
@@ -18,16 +27,6 @@ let pieces = [
   new TTetromino(),
   new ZTetromino()
 ]
-
-// console.log(
-//   [1, 0, 1, 0].reduce( (acc, cur, idx) => {
-//     if (cur == 1) {
-//       return idx
-//     } else {
-//       return acc
-//     }
-//   })
-// )
 
 let i = 0
 
@@ -65,6 +64,7 @@ document.addEventListener('keydown', function(event) {
 function draw() {
   ctx.clearRect(0, 0, canvas.clientWidth, canvas.height)
   pieces[i].draw(ctx)
+  board.draw(ctx)
 }
 
 setInterval(draw, 10)
