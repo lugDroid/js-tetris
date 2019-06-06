@@ -15,6 +15,9 @@ export default class Tetromino {
     // initial position
     this.x = 9
     this.y = 0
+
+    // if active it will be rendered on screen
+    this.active = true
   }
 
   moveRight() {
@@ -34,6 +37,7 @@ export default class Tetromino {
       this.y++
     } else {
       board.addTetromino(this)
+      this.active = false
     }
   }
 
@@ -144,15 +148,17 @@ export default class Tetromino {
   }
 
   draw(ctx) {
-    for (let i = 0; i < this.layout.length; i++) {
-      for (let j = 0; j < this.layout.length; j++) {
-        // draw square
-        if (this.layout[i][j] == 1) {
-          ctx.beginPath()
-          ctx.rect((this.x + j) * this.size, (this.y + i) * this.size, this.size, this.size)
-          ctx.fillStyle = this.color
-          ctx.fill()
-          ctx.closePath()
+    if (this.active) {
+      for (let i = 0; i < this.layout.length; i++) {
+        for (let j = 0; j < this.layout.length; j++) {
+          // draw square
+          if (this.layout[i][j] == 1) {
+            ctx.beginPath()
+            ctx.rect((this.x + j) * this.size, (this.y + i) * this.size, this.size, this.size)
+            ctx.fillStyle = this.color
+            ctx.fill()
+            ctx.closePath()
+          }
         }
       }
     }
