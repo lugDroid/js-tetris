@@ -40,6 +40,12 @@ export default class Board {
   }
 
   addTetromino(t) {
-    
+    for (let i = 0; i < t.layout.length; i++) {
+      for (let j = 0; j < t.layout.length; j++) {
+        if (t.layout[i][j] == 1) {
+          this.setPos(t.x + j, t.y + i)
+        }
+      }
+    }
   }
 }

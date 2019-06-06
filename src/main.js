@@ -18,6 +18,7 @@ board.setPos(19,39)
 board.setPos(0,39)
 
 
+
 let pieces = [
   new ITetromino(),
   new JTetromino(),
@@ -49,7 +50,7 @@ document.addEventListener('keydown', function(event) {
   }
   // down arrow
   else if (event.keyCode == 40) {
-    pieces[i].moveDown()
+    pieces[i].moveDown(board)
   }
   // z key
   else if (event.keyCode == 90) {

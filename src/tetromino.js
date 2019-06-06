@@ -29,9 +29,11 @@ export default class Tetromino {
     }
   }
 
-  moveDown() {
+  moveDown(board) {
     if (this.y + this.getBottomPos() < this.height) {
       this.y++
+    } else {
+      board.addTetromino(this)
     }
   }
 
