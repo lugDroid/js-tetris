@@ -32,9 +32,21 @@ export default class Tetromino {
     }
   }
 
+  checkCollissions(board) {
+    for (let i = 0; i < this.layout.length; i++) {
+      for (let j = 0; j < this.layout.length; j++) {
+        if (this.layout[i][j] == 1 && board.checkPos(this.x + j, this.y + i + 1)) {
+          return true
+        }
+      }
+    }
+
+    return false
+  }
+
   moveDown(board) {
     if (this.active) {
-      if (this.y + this.getBottomPos() < this.height) {
+      if (this.y + this.getBottomPos() < this.height && this.checkCollissions(board) == false) {
         this.y++
       } else {
         board.addTetromino(this)

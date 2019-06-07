@@ -48,4 +48,8 @@ export default class Board {
       }
     }
   }
+
+  checkPos(x, y) {
+    return this.grid[y][x]
+  }
 }
