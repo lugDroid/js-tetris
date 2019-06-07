@@ -33,11 +33,13 @@ export default class Tetromino {
   }
 
   moveDown(board) {
-    if (this.y + this.getBottomPos() < this.height) {
-      this.y++
-    } else {
-      board.addTetromino(this)
-      this.active = false
+    if (this.active) {
+      if (this.y + this.getBottomPos() < this.height) {
+        this.y++
+      } else {
+        board.addTetromino(this)
+        this.active = false
+      }
     }
   }
 
