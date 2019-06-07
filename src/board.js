@@ -52,4 +52,34 @@ export default class Board {
   checkPos(x, y) {
     return this.grid[y][x]
   }
+
+  removeLines() {
+    for (let i = 0; i < this.height; i++) {
+      let row = this.grid[i]
+
+      let rowResult
+
+      rowResult = row.reduce( (acc, cur, idx) => {
+        if (cur == 0) {
+          return cur
+        } else {
+          return acc
+        }
+      }, 1)
+
+      if (rowResult == 1) {
+        console.log(rowResult, i)
+      }
+      
+
+      if (rowResult == 1) {
+        console.log('about to delete row #' + i)
+        // removes 1 element starting on pos i
+        this.grid.splice(i, 1)
+
+        // add new empty line at the top
+        this.grid.unshift([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+      }
+    }
+  }
 }

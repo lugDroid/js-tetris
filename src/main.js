@@ -22,8 +22,6 @@ let pieces = [
   new ZTetromino()
 ]
 
-
-
 // get random tetromino
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max))
@@ -34,6 +32,18 @@ let tetromino
 let rnd
 
 rnd = getRandomInt(7)
+
+/* let arr = [1, 1, 1, 1]
+
+let result = arr.reduce( (acc, el) => {
+  if (el == 0) {
+    return el
+  } else {
+    return acc
+  }
+}, 1)
+
+console.log(result) */
 
 switch (rnd) {
   case 0:
@@ -90,6 +100,7 @@ function draw() {
 
   ctx.clearRect(0, 0, canvas.clientWidth, canvas.height)
   tetromino.draw(ctx)
+  board.removeLines()
   board.draw(ctx)
 
   if (tetromino.active == false) {
