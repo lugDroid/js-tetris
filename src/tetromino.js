@@ -20,23 +20,37 @@ export default class Tetromino {
     this.active = true
   }
 
-  moveRight() {
-    if ((this.x + this.getMostRightPos()) < this.width) {
+  moveRight(board) {
+    if ((this.x + this.getMostRightPos()) < this.width && this.checkCollissions(board, 'right') == false) {
       this.x++
     }
   }
 
-  moveLeft() {
-    if (this.x + this.getMostLeftPos() > 0) {
+  moveLeft(board) {
+    if (this.x + this.getMostLeftPos() > 0 && this.checkCollissions(board, 'left') == false) {
       this.x--
     }
   }
 
-  checkCollissions(board) {
+  checkCollissions(board, type) {
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
-        if (this.layout[i][j] == 1 && board.checkPos(this.x + j, this.y + i + 1)) {
-          return true
+        switch (type) {
+          case 'down':
+            if (this.layout[i][j] == 1 && board.checkPos(this.x + j, this.y + i + 1)) {
+              return true
+            }
+            break
+          case 'left':
+            if (this.layout[i][j] == 1 && board.checkPos(this.x - 1, this.y + i)) {
+              return true
+            }
+            break
+          case 'right':
+            if (this.layout[i][j] == 1 && board.checkPos(this.x + j + 1, this.y + i)) {
+              return true
+            }
+            break
         }
       }
     }
@@ -46,7 +60,7 @@ export default class Tetromino {
 
   moveDown(board) {
     if (this.active) {
-      if (this.y + this.getBottomPos() < this.height && this.checkCollissions(board) == false) {
+      if (this.y + this.getBottomPos() < this.height && this.checkCollissions(board, 'down') == false) {
         this.y++
       } else {
         board.addTetromino(this)

@@ -76,11 +76,11 @@ document.addEventListener('keydown', function(event) {
   }
   // left arrow
   if (event.keyCode == 37) {
-    tetromino.moveLeft()
+    tetromino.moveLeft(board)
   }
   // right arrow
   else if (event.keyCode == 39) {
-    tetromino.moveRight()
+    tetromino.moveRight(board)
   }
   // down arrow
   else if (event.keyCode == 40) {
