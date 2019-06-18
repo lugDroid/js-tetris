@@ -7,6 +7,12 @@ import TTetromino from './tTetromino.js'
 import ZTetromino from './zTetromino.js'
 import Board from './Board.js'
 
+const KEY_LEFT = 37
+const KEY_RIGHT = 39
+const KEY_DOWN = 40
+const KEY_Z = 90
+const KEY_X = 88
+
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
@@ -33,18 +39,6 @@ let rnd
 
 rnd = getRandomInt(7)
 
-/* let arr = [1, 1, 1, 1]
-
-let result = arr.reduce( (acc, el) => {
-  if (el == 0) {
-    return el
-  } else {
-    return acc
-  }
-}, 1)
-
-console.log(result) */
-
 switch (rnd) {
   case 0:
     tetromino = new ITetromino()
@@ -70,28 +64,19 @@ switch (rnd) {
 }
 
 document.addEventListener('keydown', function(event) {
-  // change piece to show
-  if (event.keyCode == 32) {
-    console.log(tetromino.active)
-  }
-  // left arrow
-  if (event.keyCode == 37) {
+  if (event.keyCode == KEY_LEFT) {
     tetromino.moveLeft(board)
   }
-  // right arrow
-  else if (event.keyCode == 39) {
+  else if (event.keyCode == KEY_RIGHT) {
     tetromino.moveRight(board)
   }
-  // down arrow
-  else if (event.keyCode == 40) {
+  else if (event.keyCode == KEY_DOWN) {
     tetromino.moveDown(board)
   }
-  // z key
-  else if (event.keyCode == 90) {
+  else if (event.keyCode == KEY_Z) {
     tetromino.rotateLeft()
   }
-  // x key
-  else if (event.keyCode == 88) {
+  else if (event.keyCode == KEY_X) {
     tetromino.rotateRight()
   }
 })
