@@ -13,6 +13,9 @@ const KEY_DOWN = 40
 const KEY_Z = 90
 const KEY_X = 88
 
+const SPEED = 1000
+const REFRESH_RATE = 10
+
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
@@ -81,6 +84,10 @@ document.addEventListener('keydown', function(event) {
   }
 })
 
+function moveDown() {
+  tetromino.moveDown(board)
+}
+
 function draw() {
 
   ctx.clearRect(0, 0, canvas.clientWidth, canvas.height)
@@ -115,7 +122,9 @@ function draw() {
           break
     }
   }
+
+  //tetromino.moveDown(board)
 }
 
-setInterval(draw, 10)
-
+setInterval(moveDown, SPEED)
+setInterval(draw, REFRESH_RATE)
