@@ -7,6 +7,7 @@ import TTetromino from './tTetromino.js'
 import ZTetromino from './zTetromino.js'
 import Board from './Board.js'
 
+// CONSTANTS
 const KEY_LEFT = 37
 const KEY_RIGHT = 39
 const KEY_DOWN = 40
@@ -16,20 +17,14 @@ const KEY_X = 88
 const SPEED = 1000
 const REFRESH_RATE = 10
 
+const BLOCK_SIZE = 30
+const COLUMNS = 10
+const ROWS = 20
+
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
-let board = new Board(20, 40)
-
-let pieces = [
-  new ITetromino(),
-  new JTetromino(),
-  new LTetromino(),
-  new OTetromino(),
-  new STetromino(),
-  new TTetromino(),
-  new ZTetromino()
-]
+let board = new Board(COLUMNS, ROWS, BLOCK_SIZE)
 
 // get random tetromino
 function getRandomInt(max) {
@@ -39,31 +34,32 @@ function getRandomInt(max) {
 let i = 0
 let tetromino
 let rnd
+let slideInterval
 
 rnd = getRandomInt(7)
 
 switch (rnd) {
   case 0:
-    tetromino = new ITetromino()
+    tetromino = new ITetromino(BLOCK_SIZE)
     break
   case 1:
-      tetromino = new JTetromino()
-      break
+    tetromino = new JTetromino(BLOCK_SIZE)
+    break
   case 2:
-      tetromino = new LTetromino()
-      break
+    tetromino = new LTetromino(BLOCK_SIZE)
+     break
   case 3:
-      tetromino = new OTetromino()
-      break
+    tetromino = new OTetromino(BLOCK_SIZE)
+    break
   case 4:
-      tetromino = new STetromino()
-      break
+    tetromino = new STetromino(BLOCK_SIZE)
+    break
   case 5:
-      tetromino = new TTetromino()
-      break
+    tetromino = new TTetromino(BLOCK_SIZE)
+    break
   case 6:
-      tetromino = new ZTetromino()
-      break
+    tetromino = new ZTetromino(BLOCK_SIZE)
+    break
 }
 
 document.addEventListener('keydown', function(event) {
@@ -74,7 +70,7 @@ document.addEventListener('keydown', function(event) {
     tetromino.moveRight(board)
   }
   else if (event.keyCode == KEY_DOWN) {
-    tetromino.moveDown(board)
+    slideInterval = setInterval(moveDown, 10)
   }
   else if (event.keyCode == KEY_Z) {
     tetromino.rotateLeft()
@@ -96,34 +92,34 @@ function draw() {
   board.draw(ctx)
 
   if (tetromino.active == false) {
+    clearInterval(slideInterval)
+
     rnd = getRandomInt(7)
 
     switch (rnd) {
       case 0:
-        tetromino = new ITetromino()
+        tetromino = new ITetromino(BLOCK_SIZE)
         break
       case 1:
-          tetromino = new JTetromino()
-          break
+        tetromino = new JTetromino(BLOCK_SIZE)
+        break
       case 2:
-          tetromino = new LTetromino()
-          break
+        tetromino = new LTetromino(BLOCK_SIZE)
+        break
       case 3:
-          tetromino = new OTetromino()
-          break
+        tetromino = new OTetromino(BLOCK_SIZE)
+        break
       case 4:
-          tetromino = new STetromino()
-          break
+        tetromino = new STetromino(BLOCK_SIZE)
+        break
       case 5:
-          tetromino = new TTetromino()
-          break
+        tetromino = new TTetromino(BLOCK_SIZE)
+        break
       case 6:
-          tetromino = new ZTetromino()
-          break
+        tetromino = new ZTetromino(BLOCK_SIZE)
+        break
     }
   }
-
-  //tetromino.moveDown(board)
 }
 
 setInterval(moveDown, SPEED)

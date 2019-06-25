@@ -1,19 +1,19 @@
 export default class Tetromino {
 
-  constructor() {
+  constructor(blockSize) {
     this.layout = [
     ]
 
-    // inner blocks size
-    this.size = 20
+    // building blocks size
+    this.size = blockSize
 
     // canvas size
     // in number of blocks
-    this.width = 20
-    this.height = 40
+    this.width = 10
+    this.height = 20
 
     // initial position
-    this.x = 9
+    this.x = 4
     this.y = 0
 
     // if active it will be rendered on screen

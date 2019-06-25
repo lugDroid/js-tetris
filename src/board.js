@@ -1,13 +1,13 @@
 export default class Board {
-  constructor(width, height) {
-    this.width = width
-    this.height = height
+  constructor(columns, rows, blockSize) {
+    this.columns = columns
+    this.rows = rows
     this.grid = []
-    this.size = 20
+    this.size = blockSize
 
-    for (let i = 0; i < height; i++) {
+    for (let i = 0; i < rows; i++) {
       let row = []
-      for (let j = 0; j < width; j++) {
+      for (let j = 0; j < columns; j++) {
         row.push(0)
       }
       this.grid.push(row)
@@ -21,8 +21,8 @@ export default class Board {
   }
 
   draw(ctx) {
-    for (let i = 0; i < this.height; i++) {
-      for (let j = 0; j < this.width; j++) {
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.columns; j++) {
         // draw square
         if (this.grid[i][j] == 1) {
           ctx.beginPath()
@@ -54,7 +54,7 @@ export default class Board {
   }
 
   removeLines() {
-    for (let i = 0; i < this.height; i++) {
+    for (let i = 0; i < this.rows; i++) {
       let row = this.grid[i]
 
       let rowResult

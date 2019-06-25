@@ -1,8 +1,8 @@
 import Tetromino from './tetromino.js'
 
 export default class OTetromino extends Tetromino {
-  constructor() {
-    super()
+  constructor(blockSize) {
+    super(blockSize)
 
     // define layout for this particular tetromino
     this.layout = [
