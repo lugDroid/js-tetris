@@ -69,6 +69,17 @@ export default class Tetromino {
     }
   }
 
+  drop(board) {
+    if (this.active) {
+      while (this.y + this.getBottomPos() < this.height && this.checkCollissions(board, 'down') == false) {
+        this.y++
+      }
+
+      board.addTetromino(this)
+      this.active = false
+    }
+  }
+
   getBottomPos() {
     let pos = this.layout.reduce( (acc, row, idx) => {
       let rowPos = row.reduce( (acc, cur, idx) => {
@@ -197,5 +208,4 @@ export default class Tetromino {
       row.forEach( el => console.log(el))
     })
   }
-
 }

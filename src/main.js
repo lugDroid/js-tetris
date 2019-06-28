@@ -83,7 +83,7 @@ function draw() {
     tetromino.moveRight(board)
   }
   if (keyState[KEY_DOWN]) {
-    // TO DO - Add new drop function to tetromino 
+    tetromino.drop(board)
   }
   if (keyState[KEY_Z]) {
     tetromino.rotateLeft()
