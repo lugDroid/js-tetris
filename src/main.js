@@ -15,7 +15,7 @@ const KEY_Z = 90
 const KEY_X = 88
 
 const SPEED = 1000
-const REFRESH_RATE = 10
+const REFRESH_RATE = 100
 
 const BLOCK_SIZE = 30
 const COLUMNS = 10
@@ -26,6 +26,7 @@ const ctx = canvas.getContext('2d')
 
 let board = new Board(COLUMNS, ROWS, BLOCK_SIZE)
 let slideInterval
+let keyState = []
 
 // get random tetromino
 function getRandomInt(max) {
@@ -65,29 +66,31 @@ function getRandomTetromino() {
 
 let tetromino = getRandomTetromino()
 
-document.addEventListener('keydown', function(event) {
-  if (event.keyCode == KEY_LEFT) {
-    tetromino.moveLeft(board)
-  }
-  else if (event.keyCode == KEY_RIGHT) {
-    tetromino.moveRight(board)
-  }
-  else if (event.keyCode == KEY_DOWN) {
-    slideInterval = setInterval(moveDown, 10)
-  }
-  else if (event.keyCode == KEY_Z) {
-    tetromino.rotateLeft()
-  }
-  else if (event.keyCode == KEY_X) {
-    tetromino.rotateRight()
-  }
-})
-
-function moveDown() {
-  tetromino.moveDown(board)
+// key listener
+function keyEventLogger(e) {
+  keyState[e.keyCode] = e.type == 'keydown'
 }
 
+document.addEventListener('keydown', keyEventLogger)
+document.addEventListener('keyup', keyEventLogger)
+
+// draw and refresh intervals
 function draw() {
+  if (keyState[KEY_LEFT]) {
+    tetromino.moveLeft(board)
+  }
+  if (keyState[KEY_RIGHT]) {
+    tetromino.moveRight(board)
+  }
+  if (keyState[KEY_DOWN]) {
+    // TO DO - Add new drop function to tetromino 
+  }
+  if (keyState[KEY_Z]) {
+    tetromino.rotateLeft()
+  }
+  if (keyState[KEY_X]) {
+    tetromino.rotateRight()
+  }
 
   ctx.clearRect(0, 0, canvas.clientWidth, canvas.height)
   tetromino.draw(ctx)
@@ -102,5 +105,12 @@ function draw() {
   }
 }
 
-setInterval(moveDown, SPEED)
 setInterval(draw, REFRESH_RATE)
+
+// automatic down movement
+function moveDown() {
+  tetromino.moveDown(board)
+}
+
+setInterval(moveDown, SPEED)
+
