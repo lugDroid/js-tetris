@@ -25,42 +25,45 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
 let board = new Board(COLUMNS, ROWS, BLOCK_SIZE)
+let slideInterval
 
 // get random tetromino
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max))
 }
 
-let i = 0
-let tetromino
-let rnd
-let slideInterval
+function getRandomTetromino() {
+  let randomT
+  let rnd = getRandomInt(7)
 
-rnd = getRandomInt(7)
+  switch (rnd) {
+    case 0:
+      randomT = new ITetromino(BLOCK_SIZE)
+      break
+    case 1:
+      randomT = new JTetromino(BLOCK_SIZE)
+      break
+    case 2:
+      randomT = new LTetromino(BLOCK_SIZE)
+       break
+    case 3:
+      randomT = new OTetromino(BLOCK_SIZE)
+      break
+    case 4:
+      randomT = new STetromino(BLOCK_SIZE)
+      break
+    case 5:
+      randomT = new TTetromino(BLOCK_SIZE)
+      break
+    case 6:
+      randomT = new ZTetromino(BLOCK_SIZE)
+      break
+  }
 
-switch (rnd) {
-  case 0:
-    tetromino = new ITetromino(BLOCK_SIZE)
-    break
-  case 1:
-    tetromino = new JTetromino(BLOCK_SIZE)
-    break
-  case 2:
-    tetromino = new LTetromino(BLOCK_SIZE)
-     break
-  case 3:
-    tetromino = new OTetromino(BLOCK_SIZE)
-    break
-  case 4:
-    tetromino = new STetromino(BLOCK_SIZE)
-    break
-  case 5:
-    tetromino = new TTetromino(BLOCK_SIZE)
-    break
-  case 6:
-    tetromino = new ZTetromino(BLOCK_SIZE)
-    break
+  return randomT
 }
+
+let tetromino = getRandomTetromino()
 
 document.addEventListener('keydown', function(event) {
   if (event.keyCode == KEY_LEFT) {
@@ -94,31 +97,8 @@ function draw() {
   if (tetromino.active == false) {
     clearInterval(slideInterval)
 
-    rnd = getRandomInt(7)
-
-    switch (rnd) {
-      case 0:
-        tetromino = new ITetromino(BLOCK_SIZE)
-        break
-      case 1:
-        tetromino = new JTetromino(BLOCK_SIZE)
-        break
-      case 2:
-        tetromino = new LTetromino(BLOCK_SIZE)
-        break
-      case 3:
-        tetromino = new OTetromino(BLOCK_SIZE)
-        break
-      case 4:
-        tetromino = new STetromino(BLOCK_SIZE)
-        break
-      case 5:
-        tetromino = new TTetromino(BLOCK_SIZE)
-        break
-      case 6:
-        tetromino = new ZTetromino(BLOCK_SIZE)
-        break
-    }
+    tetromino = getRandomTetromino()
+    
   }
 }
 
